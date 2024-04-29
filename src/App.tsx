@@ -1,11 +1,18 @@
 import './App.css'
+import Login from './pages/Login'
+import Home from './pages/Home'
+import ThemeContext from './context/ThemeContext';
+import { useState } from 'react';
 
 function App() {
+  const [token, setToken] = useState<string>('');
 
   return (
     <>
-      <h1>React</h1>
-      <h2>React</h2>
+      <ThemeContext.Provider value={{ token, setToken }}>
+        <Login />
+        {/* <Home /> */}
+      </ThemeContext.Provider>
     </>
   )
 }
