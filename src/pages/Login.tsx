@@ -3,13 +3,13 @@ import { User } from "../utils/type";
 import { newUser } from "../utils/newObj";
 import axios from "axios";
 import ThemeContext from "../context/ThemeContext";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [login, setLogin] = useState<boolean>(true)
   const [user, setUser] = useState<User>(newUser)
   const themeContext = useContext(ThemeContext);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const toggleLogin = (): void => {
     setUser(newUser)
@@ -21,12 +21,28 @@ function Login() {
       ...user,
       [event.target.name]: event.target.value 
     })
-  } 
+  }
 
   const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const loginSuccessful = await axios.post('http://localhost:3000/user/signin', user)
-    themeContext.setToken(loginSuccessful.data.token)
+
+    if (loginSuccessful) {
+      themeContext.setToken(loginSuccessful.data.token)
+      themeContext.setUsername(user.username)
+      navigate('/home')
+    }
+  }
+
+  const submitSubscribe = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const subscribeSuccessful = await axios.post('http://localhost:3000/user/signup', user)
+
+    if (subscribeSuccessful) {
+      themeContext.setToken(subscribeSuccessful.data.token)
+      themeContext.setUsername(user.username)
+      navigate('/home')
+    }
   }
 
   return (
@@ -52,7 +68,7 @@ function Login() {
         <div>
           <h1>Registre-se</h1>
           <h2>Já tem cadastro? <a onClick={ toggleLogin }>Login</a></h2>
-          <form>
+          <form onSubmit={ submitSubscribe }>
             <label>
               <p>Usuário</p>
               <input type="text" name="username" id="username" value={ user.username } onChange={ (event) => toggleUserValue(event)} />

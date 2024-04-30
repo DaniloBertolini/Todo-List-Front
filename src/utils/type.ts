@@ -10,6 +10,8 @@ export type LoginSuccessfull = {
 }
 
 export type ThemeContextType = {
+  username: string,
   token: string,
   setToken: React.Dispatch<React.SetStateAction<string>>
+  setUsername: React.Dispatch<React.SetStateAction<string>>
 };

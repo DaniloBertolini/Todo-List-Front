@@ -17,7 +17,10 @@ function Home() {
             <p>title</p>
             <input type="text" name="" id="" />
           </label>
-          <p>description</p>
+          <label htmlFor="">
+            <p>description</p>
+            <input type="text" name="" id="" />
+          </label>
           <button type="submit" onClick={ saveTask }>Save</button>
         </form>
       }
