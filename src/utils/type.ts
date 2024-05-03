@@ -9,6 +9,25 @@ export type LoginSuccessfull = {
   }
 }
 
+export type TaskCreate = {
+	title: string,
+	description: string,
+}
+
+export type TaskToUpdate = {
+	title: string,
+	description: string,
+  status: string,
+}
+
+export type Task = {
+  id: number,
+  title: string,
+  description: string,
+  status: string,
+  userId: number
+}
+
 export type ThemeContextType = {
   username: string,
   token: string,

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [login, setLogin] = useState<boolean>(true)
   const [user, setUser] = useState<User>(newUser)
-  const themeContext = useContext(ThemeContext);
+  const { setToken, setUsername } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const toggleLogin = (): void => {
@@ -28,8 +28,8 @@ function Login() {
     const loginSuccessful = await axios.post('http://localhost:3000/user/signin', user)
 
     if (loginSuccessful) {
-      themeContext.setToken(loginSuccessful.data.token)
-      themeContext.setUsername(user.username)
+      setToken(loginSuccessful.data.token)
+      setUsername(user.username)
       navigate('/home')
     }
   }
@@ -39,8 +39,8 @@ function Login() {
     const subscribeSuccessful = await axios.post('http://localhost:3000/user/signup', user)
 
     if (subscribeSuccessful) {
-      themeContext.setToken(subscribeSuccessful.data.token)
-      themeContext.setUsername(user.username)
+      setToken(subscribeSuccessful.data.token)
+      setUsername(user.username)
       navigate('/home')
     }
   }
